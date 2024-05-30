@@ -91,13 +91,13 @@ def run_loop_in_thread(loop):
 
 loop = asyncio.new_event_loop()
 t = threading.Thread(target=run_loop_in_thread, args=(loop,))
-
+t.start()
 
 app = Flask(__name__)
 @app.route("/")
 def helloworld():
     return "Hello World!"
 if __name__ == "__main__":
-    t.start()
+    
     app.run()
 

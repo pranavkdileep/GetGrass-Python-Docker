@@ -2,3 +2,4 @@ fake_useragent
 loguru
 websockets_proxy
 flask
+gunicorn
