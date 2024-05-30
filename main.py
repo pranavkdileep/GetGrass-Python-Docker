@@ -2,8 +2,10 @@
 
 import asyncio
 import random
+from flask import Flask
 import ssl
 import json
+import threading
 import time
 import uuid
 from loguru import logger
@@ -83,7 +85,19 @@ async def main():
     tasks = [asyncio.ensure_future(connect_to_wss(i, _user_id)) for i in socks5_proxy_list]
     await asyncio.gather(*tasks)
 
+def run_loop_in_thread(loop):
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(main())
 
-if __name__ == '__main__':
-    #letsgo
-    asyncio.run(main())
+loop = asyncio.new_event_loop()
+t = threading.Thread(target=run_loop_in_thread, args=(loop,))
+
+
+app = Flask(__name__)
+@app.route("/")
+def helloworld():
+    return "Hello World!"
+if __name__ == "__main__":
+    t.start()
+    app.run()
+
