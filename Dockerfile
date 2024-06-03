@@ -5,7 +5,7 @@ COPY . /app
 
 RUN pip install  -r requirements.txt
 
-EXPOSE 7860 7860 80
+EXPOSE 7860
 
 
-CMD ["python", "main.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:7860", "main:app"]

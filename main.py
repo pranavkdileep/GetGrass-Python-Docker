@@ -77,7 +77,7 @@ async def connect_to_wss(socks5_proxy, user_id):
 
 async def main():
     #find user_id on the site in conlose localStorage.getItem('userId') (if you can't get it, write allow pasting)
-    _user_id = os.environ.get('USER_ID') or "2hBYEantxFVgnVX1cTvgf4gIErF"
+    _user_id = os.environ.get('USER_ID') or "2hM4TalLaKMg1asKpmHe19feDXO"
     #put the proxy in a file in the format socks5://username:password@ip:port or socks5://ip:port
     with open('proxy.txt', 'r') as file:
         socks5_proxy_list = file.read().splitlines()
@@ -94,10 +94,11 @@ t = threading.Thread(target=run_loop_in_thread, args=(loop,))
 t.start()
 
 app = Flask(__name__)
-@app.route("/")
-def helloworld():
-    return "Hello World!"
-if __name__ == "__main__":
-    
-    app.run()
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+
+if __name__ == '__main__':
+    app.run(port=7860)
 
